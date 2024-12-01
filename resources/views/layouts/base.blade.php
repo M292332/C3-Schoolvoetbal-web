@@ -20,9 +20,12 @@
             position: absolute;
             background-color: #f9f9f9;
             min-width: 160px;
+            max-width: 100%;
             box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
             padding: 12px 16px;
             z-index: 1;
+            overflow: hidden;
+            flex-wrap: wrap;
         }
 
         .dropdown:hover .dropdown-content {
@@ -40,7 +43,22 @@
             background-color: #ddd;
             color: #000;
         }
+
+        .dropdown-content {
+            max-width: 250px;
+            width: auto;
+            right: 0;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            overflow-x: hidden;
+        }
     </style>
+
 </head>
 <body class="bg-gray-50 text-gray-800 font-sans">
     <!-- Header -->
@@ -50,25 +68,29 @@
                 <span>FootyGokken</span>
             </h1>
             <nav class="mt-4 sm:mt-0">
-
-
-
+                <ul class="flex space-x-4">
+                    <!-- Dropdown menu  -->
                     <li class="dropdown">
-                        <a href="#" class="hover:text-blue-300 transition">opties</a>
+                        <a href="#" class="hover:text-blue-300 transition">Opties</a>
                         <div class="dropdown-content">
                             <a href="/" class="dropdown-item">Home</a>
-                            <a href="/" class="dropdown-item">Wedstrijden</a>
-                            <a href="{{ route('login') }}" class="dropdown-item">Log in</a>
-                            <a href="{{ route('register') }}" class="dropdown-item">Register</a>
-                            <form action="{{ route('logout') }}" method="POST" class="dropdown-item">
-                                @csrf
-                                <button type="submit" class="w-full text-left">Logout</button>
-                            </form>
+                            <a href="/wedstrijden" class="dropdown-item">Wedstrijden</a>
+
+                            @auth
+                                <a href="{{ route('toernooien.index') }}" class="dropdown-item">Toernooien</a>
+                                <a href="{{ route('teams.index') }}" class="dropdown-item">Teams</a>
+                                <form action="{{ route('logout') }}" method="POST" class="dropdown-item">
+                                    @csrf
+                                    <button type="submit" class="w-full text-left">Uitloggen</button>
+                                </form>
+                            @else
+                                <a href="{{ route('login') }}" class="dropdown-item">Log in</a>
+                                <a href="{{ route('register') }}" class="dropdown-item">Register</a>
+                            @endauth
                         </div>
                     </li>
                 </ul>
             </nav>
-
         </div>
     </header>
 
@@ -80,19 +102,18 @@
     <!-- Footer -->
     <footer class="bg-blue-400 text-white py-8 sm:py-12 mt-12 px-6 sm:px-8">
         <div class="container mx-auto flex flex-col md:flex-row justify-between items-start space-y-8 md:space-y-0">
-
             <div class="flex flex-col text-center md:text-left">
                 <h2 class="text-xl font-semibold text-blue-300 mb-4">Contactgegevens</h2>
                 <p>Email: <a href="mailto:info@zorba.nl" class="hover:underline text-blue-200">koelemail@mail.nl</a></p>
                 <p>Telefoon: <a href="tel:+31123456789" class="hover:underline text-blue-200">+31 6 1234 5678</a></p>
-                <p>koele locatie, koelere locatie 69 1234 AB Breda</p>
+                <p>Koele locatie, Koelere locatie 69 1234 AB Breda</p>
             </div>
 
             <nav class="flex flex-col text-center md:text-left">
                 <h2 class="text-xl font-semibold text-blue-300 mb-4">Navigatie</h2>
                 <ul class="space-y-2">
                     <li><a href="/" class="hover:text-blue-200 transition">Home</a></li>
-                    <li><a href="/" class="hover:text-blue-200 transition">Wedstrijden</a></li>
+                    <li><a href="/wedstrijden" class="hover:text-blue-200 transition">Wedstrijden</a></li>
                     <li><a href="/" class="hover:text-blue-200 transition">Gokken</a></li>
                 </ul>
             </nav>
