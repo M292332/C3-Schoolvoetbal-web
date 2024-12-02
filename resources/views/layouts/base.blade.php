@@ -74,7 +74,7 @@
                         <a href="#" class="hover:text-blue-300 transition">Opties</a>
                         <div class="dropdown-content">
                             <a href="/" class="dropdown-item">Home</a>
-                            <a href="/wedstrijden" class="dropdown-item">Wedstrijden</a>
+
 
                             @auth
                                 <a href="{{ route('toernooien.index') }}" class="dropdown-item">Toernooien</a>
