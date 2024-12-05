@@ -4,10 +4,10 @@
     <div>
         <p><strong>Spelers:</strong></p>
 
-        @if($team->players && is_array(json_decode($team->players))) <!-- Controleer of het een geldige array is -->
+        @if($team->players->isNotEmpty()) <!-- Controleer of er spelers zijn -->
             <ul>
-                @foreach(json_decode($team->players) as $player)
-                    <li>{{ $player }}</li>
+                @foreach($team->players as $player)
+                    <li>{{ $player->name }}</li> <!-- Toon de naam van de speler -->
                 @endforeach
             </ul>
         @else

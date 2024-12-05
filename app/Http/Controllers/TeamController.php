@@ -62,6 +62,7 @@ class TeamController extends Controller
         return view('teams.show', compact('team'));
     }
 
+
     public function destroy(Team $team)
     {
         $team->delete();

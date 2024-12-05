@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ToernooiController;
 use App\Http\Controllers\TeamController;
+use App\Http\Controllers\GameController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -52,6 +53,5 @@ require __DIR__.'/auth.php';
     Route::put('/teams/update/{team}', [TeamController::class, 'update'])->name('teams.update');
     Route::delete('/teams/delete/{team}', [TeamController::class, 'destroy'])->name('teams.destroy');
     Route::get('/teams/{team}', [TeamController::class, 'show'])->name('teams.show');
-    use App\Http\Controllers\GameController;
 
-    
+
