@@ -12,6 +12,7 @@ class DatabaseSeeder extends Seeder
             TeamSeeder::class,
             PlayerSeeder::class,
             ToernooiSeeder::class,
+            UserSeeder::class,
 
         ]);
     }
