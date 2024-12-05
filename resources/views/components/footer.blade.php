@@ -10,7 +10,7 @@
         <h2 class="text-xl font-semibold text-blue-300 mb-4">Navigatie</h2>
         <ul class="space-y-2">
             <li><a href="/" class="hover:text-blue-200 transition">Home</a></li>
-            <li><a href="/wedstrijden" class="hover:text-blue-200 transition">Wedstrijden</a></li>
+            <li><a href="/" class="hover:text-blue-200 transition">Wedstrijden</a></li>
             <li><a href="/" class="hover:text-blue-200 transition">Gokken</a></li>
         </ul>
     </nav>

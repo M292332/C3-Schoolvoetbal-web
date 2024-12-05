@@ -33,7 +33,7 @@ Route::middleware('auth')->group(function () {
 
 require __DIR__.'/auth.php';
 
-        // **Toernooi**
+    // **Toernooi**
     Route::get('/toernooien', [ToernooiController::class, 'index'])->name('toernooien.index');
     Route::get('/toernooien/create', [ToernooiController::class, 'create'])->name('toernooien.create');
     Route::post('/toernooien', [ToernooiController::class, 'store'])->name('toernooien.store');
