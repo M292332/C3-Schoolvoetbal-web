@@ -14,6 +14,7 @@
                     @auth
                         <a href="{{ route('toernooien.index') }}" class="dropdown-item">Toernooien</a>
                         <a href="{{ route('teams.index') }}" class="dropdown-item">Teams</a>
+                        <a href="{{ route('profile.edit') }}" class="dropdown-item">Account beheren</a>
                         <form action="{{ route('logout') }}" method="POST" class="dropdown-item">
                             @csrf
                             <button type="submit" class="w-full text-left">Uitloggen</button>
