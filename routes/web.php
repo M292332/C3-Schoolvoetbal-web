@@ -41,7 +41,7 @@ require __DIR__.'/auth.php';
     Route::put('/toernooien/update/{toernooi}', [ToernooiController::class, 'update'])->name('toernooien.update');
     Route::delete('/toernooien/delete/{toernooi}', [ToernooiController::class, 'destroy'])->name('toernooien.destroy');
     Route::get('/toernooien/{toernooi}', [ToernooiController::class, 'show'])->name('toernooien.show');
-
+    Route::post('toernooien/{toernooi}/add-team', [ToernooiController::class, 'addTeam'])->name('toernooien.addTeam');
 
 
 
@@ -53,5 +53,6 @@ require __DIR__.'/auth.php';
     Route::put('/teams/update/{team}', [TeamController::class, 'update'])->name('teams.update');
     Route::delete('/teams/delete/{team}', [TeamController::class, 'destroy'])->name('teams.destroy');
     Route::get('/teams/{team}', [TeamController::class, 'show'])->name('teams.show');
+
 
 

@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Models\Team;
 use App\Models\Toernooi;
 use Illuminate\Http\Request;
 
@@ -49,9 +49,13 @@ class ToernooiController extends Controller
         return redirect()->route('toernooien.index')->with('success', 'Toernooi bijgewerkt!');
     }
     public function show(Toernooi $toernooi)
-    {
-        return view('toernooien.show', compact('toernooi'));
-    }
+{
+    $teams = Team::all();
+    $games = $toernooi->games;
+
+    return view('toernooien.show', compact('toernooi', 'teams', 'games'));
+}
+
 
 
     public function destroy(Toernooi $toernooi)
@@ -60,4 +64,31 @@ class ToernooiController extends Controller
 
         return redirect()->route('toernooien.index')->with('success', 'Toernooi verwijderd!');
     }
+    public function addTeam(Request $request, Toernooi $toernooi)
+{
+
+    $teamId = $request->team_id;
+
+
+    if ($toernooi->teams()->where('team_id', $teamId)->exists()) {
+
+        return redirect()->route('toernooien.show', $toernooi->id)
+                         ->with('error', 'Dit team is al ingeschreven voor dit toernooi.');
+    }
+
+
+    if ($toernooi->teams()->count() >= $toernooi->max_teams) {
+        return redirect()->route('toernooien.show', $toernooi->id)
+                         ->with('error', 'Dit toernooi heeft al het maximum aantal teams bereikt.');
+    }
+
+
+    $toernooi->teams()->attach($teamId);
+
+
+    return redirect()->route('toernooien.show', $toernooi->id)
+                     ->with('success', 'Team succesvol toegevoegd!');
+}
+
+
 }
