@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Models\Team;
 use App\Models\Toernooi;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class ToernooiController extends Controller

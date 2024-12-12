@@ -1,6 +1,8 @@
 <x-base-layout title="Teams">
     <h1 class="text-2xl font-bold mb-4">Teams</h1>
-    <a href="{{ route('teams.create') }}" class="bg-blue-500 text-white px-4 py-2 rounded">Nieuw Team</a>
+    @if (auth()->user()->is_admin == 1)
+        <a href="{{ route('teams.create') }}" class="bg-blue-500 text-white px-4 py-2 rounded">Nieuw Team</a>
+    @endif
 
     <table class="w-full mt-4 border">
         <thead>
@@ -23,12 +25,17 @@
                 </td>
                 <td class="p-2">
                     <a href="{{ route('teams.show', $team) }}" class="text-blue-500">Bekijk</a>
-                    <a href="{{ route('teams.edit', $team) }}" class="text-yellow-500">Bewerk</a>
-                    <form action="{{ route('teams.destroy', $team) }}" method="POST" class="inline">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="text-red-500">Verwijder</button>
-                    </form>
+                    @if (auth()->user()->is_admin == 1)
+                        <a href="{{ route('teams.edit', $team) }}" class="text-yellow-500">Bewerk</a>
+                        <form action="{{ route('teams.destroy', $team) }}" method="POST" class="inline">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="text-red-500">Verwijder</button>
+                        </form>
+                    @else
+                        <button href=""class="text-gray-500">Bewerk</button>
+                        <button href=""class="text-gray-500">Verwijder</button>
+                    @endif
                 </td>
             </tr>
             @endforeach

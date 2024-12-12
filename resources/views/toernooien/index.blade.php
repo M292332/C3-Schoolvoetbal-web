@@ -1,6 +1,8 @@
 <x-base-layout title="Toernooien">
     <h1 class="text-2xl font-bold mb-4">Toernooien</h1>
-    <a href="{{ route('toernooien.create') }}" class="bg-blue-500 text-white px-4 py-2 rounded">Nieuw Toernooi</a>
+    @if (auth()->user()->is_admin == 1)
+        <a href="{{ route('toernooien.create') }}" class="bg-blue-500 text-white px-4 py-2 rounded">Nieuw Toernooi</a>
+    @endif
 
     <table class="w-full mt-4 border">
         <thead>
@@ -21,12 +23,17 @@
                 <td class="p-2">{{ $toernooi->started ? 'Gestart' : 'Niet gestart' }}</td>
                 <td class="p-2">
                     <a href="{{ route('toernooien.show', $toernooi) }}" class="text-blue-500">Bekijk</a>
-                    <a href="{{ route('toernooien.edit', $toernooi) }}" class="text-yellow-500">Bewerk</a>
-                    <form action="{{ route('toernooien.destroy', $toernooi) }}" method="POST" class="inline">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="text-red-500">Verwijder</button>
-                    </form>
+                        @if (auth()->user()->is_admin == 1)
+                        <a href="{{ route('toernooien.edit', $toernooi) }}" class="text-yellow-500">Bewerk</a>
+                        <form action="{{ route('toernooien.destroy', $toernooi) }}" method="POST" class="inline">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="text-red-500">Verwijder</button>
+                        </form>
+                    @else
+                    <button href="" class="text-gray-500">Bewerk</button>
+                    <button class="text-gray-500">Verwijder</button>
+                    @endif
                 </td>
             </tr>
             @endforeach
