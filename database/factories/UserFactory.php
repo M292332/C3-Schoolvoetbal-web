@@ -27,6 +27,7 @@ class UserFactory extends Factory
         return [
             'is_admin' => 0,
             'name' => fake()->name(),
+            'balance' => 50,
             'team_id' => Team::factory(),
             'email' => fake()->unique()->safeEmail(),
             'email_verified_at' => now(),
