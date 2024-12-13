@@ -10,8 +10,8 @@ class CreateTeamsTable extends Migration
     {
         Schema::create('teams', function (Blueprint $table) {
             $table->id();
-            $table->string('name'); // Naam van het team
-            $table->timestamps(); // Timestamps voor created_at en updated_at
+            $table->string('name');
+            $table->timestamps();
         });
     }
 

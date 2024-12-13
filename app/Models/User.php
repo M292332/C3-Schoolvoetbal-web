@@ -20,9 +20,15 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'is_admin',
+        'team_id',
         'email',
         'password',
     ];
+
+    public function team()
+    {
+        return $this->belongsTo(Team::class);
+    }
 
     /**
      * The attributes that should be hidden for serialization.
