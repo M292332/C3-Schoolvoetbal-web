@@ -9,8 +9,17 @@ class Game extends Model
 {
     use HasFactory;
 
-    protected $table = 'games';
-    protected $fillable = ['toernooi_id', 'team_1', 'team_2', 'team_1_score', 'team_2_score'];
+
+    protected $fillable = [
+        'toernooi_id',
+        'team_1_id',
+        'team_2_id',
+        'team_1_score',  // Zorg ervoor dat deze velden hier staan
+        'team_2_score',
+        'scheduled_at',
+        'status',
+    ];
+
 
     /**
      * Relatie: Game behoort tot een toernooi.
@@ -25,7 +34,7 @@ class Game extends Model
      */
     public function team1()
     {
-        return $this->belongsTo(Team::class, 'team_1');
+        return $this->belongsTo(Team::class, 'team_1_id');
     }
 
     /**
@@ -33,6 +42,6 @@ class Game extends Model
      */
     public function team2()
     {
-        return $this->belongsTo(Team::class, 'team_2');
+        return $this->belongsTo(Team::class, 'team_2_id');
     }
 }

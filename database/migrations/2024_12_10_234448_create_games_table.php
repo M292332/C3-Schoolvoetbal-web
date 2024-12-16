@@ -14,10 +14,10 @@ return new class extends Migration
         Schema::create('games', function (Blueprint $table) {
             $table->id();
             $table->foreignId('toernooi_id')->constrained('toernooien')->onDelete('cascade'); // Verbindt de game met een toernooi
-            $table->string('team1'); // Het eerste team
-            $table->string('team2'); // Het tweede team
+            $table->foreignId('team_1_id')->constrained('teams')->onDelete('cascade'); // Verbindt de game met team 1
+            $table->foreignId('team_2_id')->constrained('teams')->onDelete('cascade'); // Verbindt de game met team 2
             $table->timestamp('scheduled_at'); // Datum en tijd van de wedstrijd
-            $table->string('status')->default('scheduled'); // Status van de wedstrijd (bijv. scheduled, completed, etc.)
+            $table->string('status')->default('scheduled'); // Standaard status van de game
             $table->timestamps();
         });
     }

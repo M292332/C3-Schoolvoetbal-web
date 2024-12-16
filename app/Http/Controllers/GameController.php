@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use App\Models\Game;
@@ -8,82 +9,73 @@ use Illuminate\Http\Request;
 
 class GameController extends Controller
 {
-    /**
-     * Toon een lijst van alle games.
-     */
+    // Toont de lijst van games
     public function index()
     {
-        $games = Game::with(['team1', 'team2', 'toernooi'])->get();
+        $games = Game::with(['team1', 'team2', 'toernooi'])->get();  // Haal alle games met teams en toernooien op
         return view('games.index', compact('games'));
     }
 
-    /**
-     * Toon een formulier voor het aanmaken van een game.
-     */
+    // Toont het formulier voor het aanmaken van een nieuwe game
     public function create()
     {
-        $toernooien = Toernooi::all();
-        $teams = Team::all();
-        return view('games.create', compact('toernooien', 'teams'));
+        $toernooien = Toernooi::all();  // Haal alle toernooien op
+        $teams = Team::all();  // Haal alle teams op
+        return view('games.create', compact('toernooien', 'teams'));  // Geef de toernooien en teams door naar de view
     }
 
-    /**
-     * Sla een nieuwe game op.
-     */
+    // Slaat een nieuwe game op
     public function store(Request $request)
     {
         $request->validate([
             'toernooi_id' => 'required|exists:toernooien,id',
-            'team_1' => 'required|exists:teams,id',
-            'team_2' => 'required|exists:teams,id',
-            'team_1_score' => 'nullable|integer',
-            'team_2_score' => 'nullable|integer',
+            'team_1_id' => 'required|exists:teams,id',
+            'team_2_id' => 'required|exists:teams,id',
+            'scheduled_at' => 'required|date',
         ]);
 
-        Game::create($request->all());
+        Game::create([
+            'toernooi_id' => $request->toernooi_id,
+            'team_1_id' => $request->team_1_id,
+            'team_2_id' => $request->team_2_id,
+            'scheduled_at' => $request->scheduled_at,
+            'status' => 'scheduled',  // Standaardstatus voor de game
+        ]);
 
         return redirect()->route('games.index')->with('success', 'Game aangemaakt!');
     }
 
-    /**
-     * Toon de details van een specifieke game.
-     */
+    // Toont de details van een game
     public function show(Game $game)
     {
         return view('games.show', compact('game'));
     }
 
-    /**
-     * Toon een formulier voor het bewerken van een game.
-     */
+    // Toont het formulier om een game te bewerken
     public function edit(Game $game)
     {
-        $toernooien = Toernooi::all();
-        $teams = Team::all();
-        return view('games.edit', compact('game', 'toernooien', 'teams'));
+        $toernooien = Toernooi::all();  // Haal alle toernooien op
+        $teams = Team::all();  // Haal alle teams op
+        return view('games.edit', compact('game', 'toernooien', 'teams'));  // Geef de game, toernooien en teams door naar de view
     }
 
-    /**
-     * Werk een bestaande game bij.
-     */
+    // Update een game
     public function update(Request $request, Game $game)
     {
         $request->validate([
-            'toernooi_id' => 'required|exists:toernooien,id',
-            'team_1' => 'required|exists:teams,id',
-            'team_2' => 'required|exists:teams,id',
             'team_1_score' => 'nullable|integer',
             'team_2_score' => 'nullable|integer',
         ]);
 
-        $game->update($request->all());
+        $game->update([
+            'team_1_score' => $request->input('team_1_score'),
+            'team_2_score' => $request->input('team_2_score'),
+        ]);
 
         return redirect()->route('games.index')->with('success', 'Game bijgewerkt!');
     }
 
-    /**
-     * Verwijder een game.
-     */
+    // Verwijdert een game
     public function destroy(Game $game)
     {
         $game->delete();
